@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Auth::routes();
+
+// Admin Pages
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/reports/{id}', 'ReportsController@index')->name('report');

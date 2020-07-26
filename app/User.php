@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'first_name', 'last_name', 'username', 'address', 'phone_number', 'email', 'password'
     ];
 
     /**
@@ -36,4 +36,24 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function roles() {
+        return $this->belongsToMany(Role::class)->withTimeStamps();
+    }
+
+    public function assignRole($role) {
+        $this->roles()->sync($role, false);
+    }
+
+    public function reports() {
+        return $this->hasMany(Reports::class);
+    }
+
+    public function getReports() {
+        return $this->reports();
+    }
+
+    public function abilities() {
+        return $this->roles->map->abilities->flatten()->pluck('name')->unique();
+    }
 }
