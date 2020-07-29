@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 // Admin Pages
-Route::get('/admin', function (){
-    return 'admin section';
-})->middleware('can:see_admin_section');
+Route::get('/admin', ['middleware' => 'admin', function () {
+    return 'admin area';
+}]);
 
 
 Route::get('/', 'HomeController@index')->name('home');

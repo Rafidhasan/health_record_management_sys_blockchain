@@ -59,4 +59,8 @@ class User extends Authenticatable
     public function abilities() {
         return $this->roles->map->abilities->flatten()->pluck('name')->unique();
     }
+
+    public function getAcessAbilityId() {
+        return $this->roles->map->abilities->flatten()->pluck('id')->first();
+    }
 }

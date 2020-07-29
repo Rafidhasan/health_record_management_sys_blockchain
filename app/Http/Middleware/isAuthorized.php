@@ -1,10 +1,8 @@
 <?php
-
 namespace App\Http\Middleware;
-
+use Auth;
 use Closure;
-
-class CheckAdmin
+class isAuthorized
 {
     /**
      * Handle an incoming request.
@@ -15,11 +13,10 @@ class CheckAdmin
      */
     public function handle($request, Closure $next)
     {
-        $userRoles = Auth::user()->roles->pluck('name');
-
-        if(!$userRoles->contains('Admin')) {
-            return redirect('/');
+        if (Auth::user() &&  Auth::user()->getAcessAbilityId() == 1) {
+                return $next($request);
         }
-        return redirect('/admin');
+
+        return redirect('/');
     }
 }
