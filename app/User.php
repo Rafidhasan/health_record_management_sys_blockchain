@@ -52,8 +52,16 @@ class User extends Authenticatable
         return $this->hasMany(Reports::class);
     }
 
+    public function prescriptions() {
+        return $this->hasMany(Prescription::class);
+    }
+
     public function getReports() {
         return $this->reports();
+    }
+
+    public function getPrescriptions() {
+        return $this->prescriptions();
     }
 
     public function abilities() {
@@ -62,5 +70,9 @@ class User extends Authenticatable
 
     public function getAcessAbilityId() {
         return $this->roles->map->abilities->flatten()->pluck('id')->first();
+    }
+
+    public function getRoles() {
+        return $this->roles->pluck('name');
     }
 }
