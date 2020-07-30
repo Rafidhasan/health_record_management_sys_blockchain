@@ -17,9 +17,11 @@ Auth::routes();
 
 // Admin Pages
 Route::get('/admin', ['middleware' => 'admin', function () {
-    return 'admin area';
+    return view('admin.index');
 }]);
 
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/reports/{id}', 'ReportsController@index')->name('report');
+
+Route::get('/prescription', 'PrescriptionController@index')->name('prescription');

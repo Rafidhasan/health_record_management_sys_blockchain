@@ -23,6 +23,8 @@ $factory->define(User::class, function (Faker $faker) {
         'last_name' => $faker->lastName,
         'username' => $faker->firstName,
         'address' => $faker->address,
+        'age' => $faker->numberBetween($min = 1, $max = 85),
+        'weight' => $faker->numberBetween($min = 5, $max = 120),
         'phone_number' => $faker->phoneNumber,
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
