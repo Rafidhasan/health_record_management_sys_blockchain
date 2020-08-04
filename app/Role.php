@@ -18,4 +18,8 @@ class Role extends Model
         }
         $this->abilities()->sync($ability, false);
     }
+
+    public function users() {
+        return $this->belongsToMany(User::class)->withTimeStamps();
+    }
 }

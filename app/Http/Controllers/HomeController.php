@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\User;
 
+use App\Role;
+
 class HomeController extends Controller
 {
     /**
@@ -26,6 +28,12 @@ class HomeController extends Controller
     public function index()
     {
         $users = User::get();
-        return view('/home')->with(['users'=>$users]);
+        $roles = Role::where('name', 'doctor')->get();
+
+
+        return view('/home')->with([
+            'users'=>$users,
+            'roles'=>$roles
+        ]);
     }
 }

@@ -10,11 +10,10 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
+                            <h3>Our Doctors</h3>
                             <ul>
-                                @foreach ($users as $user)
-                                    @if ($user->getRoles() === ["admin"])
-                                        <li> {{$user->first_name}}</li>
-                                    @endif
+                                @foreach ($roles as $role)
+                                    <li><a href="/doctors">{{ $role->users->pluck('username') }}</a></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -23,7 +22,7 @@
                             <ul>
                                 @foreach (Auth::user()->getReports as $report)
                                 <li>
-                                    <a href="/report/{{$report->id}}">{{ $report -> title }} - created at: {{ $report -> created_at}}</a>
+                                    <a href="/report/{{$report['id']}}">{{ $report['title'] }}</a>
                                 </li>
                                 @endforeach
                             </ul>

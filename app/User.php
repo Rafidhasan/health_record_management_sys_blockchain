@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DB;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -52,12 +53,12 @@ class User extends Authenticatable
         return $this->hasMany(Reports::class);
     }
 
-    public function prescriptions() {
-        return $this->hasMany(Prescription::class);
-    }
-
     public function getReports() {
         return $this->reports();
+    }
+
+    public function prescriptions() {
+        return $this->hasMany(Prescription::class);
     }
 
     public function getPrescriptions() {
@@ -70,9 +71,5 @@ class User extends Authenticatable
 
     public function getAcessAbilityId() {
         return $this->roles->map->abilities->flatten()->pluck('id')->first();
-    }
-
-    public function getRoles() {
-        return $this->roles->pluck('name');
     }
 }
