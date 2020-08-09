@@ -16,14 +16,17 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 // Admin Pages
-Route::get('/admin', ['middleware' => 'admin', function () {
-    return view('admin.index');
-}]);
+Route::get('/admin', 'AdminController@index')->middleware('admin');
 
-Route::get('/doctors/{id}', 'DoctorProfileController@index');
+Route::get('/doctors/{id}', 'DoctorProfileController@index')->middleware('admin');
+Route::get('/patients_list', 'ShowPatientsController@index')->middleware('admin');
 
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/reports/{id}', 'ReportsController@index')->name('report');
 
 Route::get('/prescription', 'PrescriptionController@index')->name('prescription');
+
+
+Route::get('/appoinment/{user_id}/{doctors_id}','AppoinmentController@index');
+

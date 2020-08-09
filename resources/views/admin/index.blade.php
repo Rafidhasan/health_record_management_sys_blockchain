@@ -13,7 +13,7 @@
                         <div class="col-md-4">
                             <ul class="nav">
                                 @can('write_prescription', User::class)
-                                    <li><a href="/prescription">Write Prescription</a></li>
+                                    <li><a href="/patients_list">See Patients</a></li>
                                 @endcan
                             </ul>
                         </div>
