@@ -20,6 +20,8 @@ Route::get('/admin', ['middleware' => 'admin', function () {
     return view('admin.index');
 }]);
 
+Route::get('/doctors/{id}', 'DoctorProfileController@index');
+
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/reports/{id}', 'ReportsController@index')->name('report');

@@ -10,15 +10,17 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
-                            <h3>Our Doctors</h3>
+                            <h3>Our Doctors</h3> <br>
                             <ul>
-                                @foreach ($roles as $role)
-                                    <li><a href="/doctors">{{ $role->users->pluck('username') }}</a></li>
+                                @foreach ($infos as $doctorInfo)
+                                    <li><a href="/doctors/{{ $doctorInfo->id }}">{{ $doctorInfo->first_name }} {{ $doctorInfo->last_name }}</a></li>
                                 @endforeach
                             </ul>
+                            <a href="/reports">See All Doctors</a>
                         </div>
 
                         <div class="col-md-8">
+                            <h3>Your Prescriptions</h3> <br>
                             <ul>
                                 @foreach (Auth::user()->getReports as $report)
                                 <li>
@@ -26,7 +28,7 @@
                                 </li>
                                 @endforeach
                             </ul>
-                            <a href="/reports">See All</a>
+                            <a href="/reports">See All Prescriptions</a>
                         </div>
                     </div>
                 </div>

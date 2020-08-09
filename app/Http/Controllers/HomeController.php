@@ -28,12 +28,12 @@ class HomeController extends Controller
     public function index()
     {
         $users = User::get();
-        $roles = Role::where('name', 'doctor')->get();
-
+        $roles = Role::where('name', 'doctor')->first();
+        $infos = $roles->users;
 
         return view('/home')->with([
             'users'=>$users,
-            'roles'=>$roles
+            'infos'=>$infos
         ]);
     }
 }
