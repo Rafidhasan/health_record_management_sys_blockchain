@@ -14,7 +14,7 @@ class isAuthorized
     public function handle($request, Closure $next)
     {
         if (Auth::user() &&  Auth::user()->getAcessAbilityId() == 1) {
-                return $next($request);
+            return $next($request);
         }
 
         return redirect('/');

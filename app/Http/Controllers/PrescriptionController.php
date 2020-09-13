@@ -3,29 +3,52 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Prescription;
 
 class PrescriptionController extends Controller
 {
 
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'notes' => ['required', 'string',],
-            'medicine_details' => ['required', 'string',],
-            'reports_details' => ['required', 'string',],
+    public function insert(Request $request) {
+        $medicine_names = $request->medicine_name;
+        $quantities = $request->quantity;
+        $times = $request->time;
+        $whens = $request->when;
+        $reports_name = $request->report_name;
+
+        $prescription_infos = array_map(null, $medicine_names, $quantities, $times, $whens, $reports_name);
+
+        foreach($prescription_infos as $info => $key) {
+             $prescription = new Prescription();
+             $prescription->user_id = $request->patient_id;
+             $prescription->note = $request->note;
+             $prescription->next_session_time = $request->next_session_time;
+             $prescription->medicine_name = $key[0];
+             $prescription->quantity = $key[1];
+             $prescription->time = $key[2];
+             $prescription->when = $key[3];
+             $prescription->report_name = $key[4];
+
+             $prescription->save();
+        }
+
+        $id = $request->patient_id;
+        return redirect()->route('deletePatient', [$id]);
+    }
+
+    public function index(Request $request) {
+        $doctor_id = $request->doctor_id;
+        $patient_id = $request->patient_id;
+
+        return view('admin.doctors_corner.prescription', [
+            'doctor_id' => $doctor_id,
+            'patient_id' => $patient_id,
         ]);
     }
 
-    protected function create(array $data)
-    {
-        return Prescription::create([
-            'notes' => $data['notes'],
-            'medicine_details' => $data['medicine_details'],
-            'reports_details' => $data['reports_details'],
+    public function show(Request $request) {
+        $prescription = Prescription::where('id','=',$request->id)->first();
+        return view('prescription', [
+            'prescription' => $prescription
         ]);
-    }
-
-    public function index() {
-        return view('admin.doctors_corner.prescription');
     }
 }

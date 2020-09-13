@@ -28,7 +28,6 @@
                                     <div class="col-md-5">
                                         <a href="/appoinment/{{ Auth::user()->id }}/{{ $doctorInfo->id }}" class="btn btn-primary text-white btn-sm" type="button" value="appoinment" >Get Appoinment</a>
                                     </div>
-
                                 </div>
                                 @endforeach
                             </ul>
@@ -37,14 +36,9 @@
 
                         <div class="col-md-7">
                             <h3>Your Prescriptions</h3> <br>
-                            <ul>
-                                @foreach (Auth::user()->getReports as $report)
-                                <li>
-                                    <a href="/report/{{$report['id']}}">{{ $report['title'] }}</a>
-                                </li>
-                                @endforeach
-                            </ul>
-                            <a href="/reports">See All Prescriptions</a>
+                            @foreach ($prescriptions as $prescription)
+                                <a href="/showPrescription/{{$prescription->id}}">Prescription created at - {{ $prescription->created_at }}</a> <br>
+                            @endforeach
                         </div>
                     </div>
                 </div>

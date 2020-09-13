@@ -17,6 +17,16 @@
                                 @endcan
                             </ul>
                         </div>
+
+                        <div class="col-md-8">
+                            <ul class="">
+                                @foreach ($patients_list as $patient)
+                                    <li>
+                                        <a href="prescription/{{ $patient->id }}/{{Auth::id()}}">{{ $patient->first_name. ' '. $patient->last_name }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
